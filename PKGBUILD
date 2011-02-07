@@ -4,7 +4,7 @@
 
 pkgname=tmux
 pkgver=1.4
-pkgrel=1
+pkgrel=2
 pkgdesc="A terminal multiplexer"
 url="http://tmux.sourceforge.net/"
 arch=('i686' 'x86_64')
