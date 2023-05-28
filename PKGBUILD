@@ -3,7 +3,7 @@
 
 pkgname=tmux
 pkgver=3.3_a
-pkgrel=4
+pkgrel=5
 pkgdesc='Terminal multiplexer'
 url='https://github.com/tmux/tmux/wiki'
 arch=('x86_64')
@@ -15,7 +15,7 @@ source=("https://github.com/tmux/tmux/releases/download/${pkgver/_/}/tmux-${pkgv
         '0002-ncurses.patch')
 sha256sums=('e4fd347843bd0772c4f48d6dde625b0b109b7a380ff15db21e97c11a4dcdf93f'
             '58fb690833e086b71b52555aa8eced695ace0a0bc51b8bccfda441e35a47ca93'
-            'ec46d35d980e2d63d60069567f8456ecafdf48d4d0b4f629de585d7575d797e1')
+            '22754442e107bcdafd7ca03c0c1d4e7f7d44820d2ecc14f6d572b84dfef2308f')
 
 prepare() {
 	cd "$pkgname-${pkgver/_/}"
