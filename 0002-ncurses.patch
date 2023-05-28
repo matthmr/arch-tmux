@@ -674,7 +674,7 @@ index 32dd849a..18b17420 100644
 2.40.1
 
 
-From 638df25ffd58303ca9bdd79da4e9ff8a524249c2 Mon Sep 17 00:00:00 2001
+From 732135ed357566d65749fde1967f5639026d9418 Mon Sep 17 00:00:00 2001
 From: nicm <nicm>
 Date: Fri, 28 Apr 2023 05:59:35 +0000
 Subject: [PATCH 3/3] Do not fatal if tparm fails, instead just log it (not
@@ -682,11 +682,11 @@ Subject: [PATCH 3/3] Do not fatal if tparm fails, instead just log it (not
 
 (cherry picked from commit bf636d9575806134ca7efd917ee0d54e9330ae86)
 ---
- tty-term.c | 28 ++++++++++++++++++++--------
- 1 file changed, 20 insertions(+), 8 deletions(-)
+ tty-term.c | 30 ++++++++++++++++++++----------
+ 1 file changed, 20 insertions(+), 10 deletions(-)
 
 diff --git a/tty-term.c b/tty-term.c
-index 18b17420..dcf87a1a 100644
+index 18b17420..e489f610 100644
 --- a/tty-term.c
 +++ b/tty-term.c
 @@ -771,8 +771,10 @@ tty_term_string_i(struct tty_term *term, enum tty_code_code code, int a)
@@ -741,10 +741,12 @@ index 18b17420..dcf87a1a 100644
  	return (s);
  }
  
-@@ -843,6 +851,10 @@ tty_term_string_ss(struct tty_term *term, enum tty_code_code code,
+@@ -841,8 +849,10 @@ tty_term_string_ss(struct tty_term *term, enum tty_code_code code,
+ #else
+ 	s = tparm((char *)x, (long)a, b, 0, 0, 0, 0, 0, 0, 0);
  #endif
- 	if (s == NULL)
- 		fatalx("could not expand %s", tty_term_codes[code].name);
+-	if (s == NULL)
+-		fatalx("could not expand %s", tty_term_codes[code].name);
 +	if (s == NULL) {
 +		log_debug("could not expand %s", tty_term_codes[code].name);
 +		return ("");
