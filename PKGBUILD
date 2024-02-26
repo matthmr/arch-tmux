@@ -16,7 +16,7 @@ makedepends=('systemd')
 source=("https://github.com/tmux/tmux/releases/download/${pkgver/_/}/tmux-${pkgver/_/}.tar.gz"
         'mh-fixes.patch')
 sha256sums=('551ab8dea0bf505c0ad6b7bb35ef567cdde0ccb84357df142c254f35a23e19aa'
-            '277632395497899d31f6bd47ff3f4d47f7acbc1ad216dc99b3fb0e6b3efcfdc3')
+            '85d4e3506ec612e943ecc7339590867771437d233a85d635a825d6cfb7788fd8')
 
 prepare() {
 	cd "$pkgname-${pkgver/_/}"
