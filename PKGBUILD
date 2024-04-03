@@ -3,42 +3,40 @@
 
 pkgname=tmux
 pkgver=3.4
-pkgrel=4
+pkgrel=5
 pkgdesc='Terminal multiplexer'
 url='https://github.com/tmux/tmux/wiki'
 arch=('x86_64')
 license=('BSD')
 depends=('libevent' 'libevent_core-2.1.so'
          'libutempter'
-         'ncurses' 'libncursesw.so'
-         'systemd-libs' 'libsystemd.so')
-makedepends=('systemd')
-source=("https://github.com/tmux/tmux/releases/download/${pkgver/_/}/tmux-${pkgver/_/}.tar.gz"
-        'mh-fixes.patch')
-sha256sums=('551ab8dea0bf505c0ad6b7bb35ef567cdde0ccb84357df142c254f35a23e19aa'
+         'ncurses' 'libncursesw.so')
+makedepends=('git')
+source=("git+https://github.com/tmux/tmux.git#tag=${pkgver}")
+sha256sums=('71387cf05585836da88d9b481f98e89be5bc8f09a203600187b22aa0e00c52b0'
             'SKIP')
 
 prepare() {
-	cd "$pkgname-${pkgver/_/}"
+	cd "$pkgname"
+	patch -Np1 -i ../../mh-fixes.patch
 
-	patch -Np1 -i ../mh-fixes.patch
-
-	autoreconf -fi
+	sh autogen.sh
 }
 
 build() {
-	cd "$pkgname-${pkgver/_/}"
+	cd "$pkgname"
 
 	./configure \
 		--prefix=/usr \
 		--enable-sixel \
-		--enable-systemd \
 		--enable-utempter
 	make
+
+	# --enable-systemd \
 }
 
 package() {
-	cd "$pkgname-${pkgver/_/}"
+	cd "$pkgname"
 
 	make install DESTDIR="$pkgdir"
 	install -D -m0644 COPYING "$pkgdir/usr/share/licenses/tmux/LICENSE"
