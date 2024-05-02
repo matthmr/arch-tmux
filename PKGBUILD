@@ -3,7 +3,7 @@
 
 pkgname=tmux
 pkgver=3.4
-pkgrel=5
+pkgrel=7
 pkgdesc='Terminal multiplexer'
 url='https://github.com/tmux/tmux/wiki'
 arch=('x86_64')
@@ -20,6 +20,8 @@ prepare() {
 	cd "$pkgname"
 	patch -Np1 -i ../../mh-fixes.patch
 
+	# https://github.com/tmux/tmux/issues/3864
+	git revert -n 43e5e80343185e69a1b864fc48095ede0b898180
 	sh autogen.sh
 }
 
