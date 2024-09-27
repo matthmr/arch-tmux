@@ -19,12 +19,6 @@ sha256sums=('b838881279beaf795bf4926212c2d3fe0d31188c83e8d9efd68dc6772c559916')
 prepare() {
 	cd "$pkgname"
 
-	# https://github.com/tmux/tmux/issues/3864
-	git revert -n 43e5e80343185e69a1b864fc48095ede0b898180
-        # https://github.com/tmux/tmux/issues/3983
-        git cherry-pick -n aa17f0e0c1c8b3f1d6fc8617613c74f07de66fae
-        # https://github.com/tmux/tmux/issues/3905
-        git cherry-pick -n 3823fa2c577d440649a84af660e4d3b0c095d248
 	sh autogen.sh
 }
 
