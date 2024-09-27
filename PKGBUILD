@@ -2,8 +2,8 @@
 # Maintainer: T.J. Townsend <blakkheim@archlinux.org>
 
 pkgname=tmux
-pkgver=3.4
-pkgrel=10
+pkgver=3.5
+pkgrel=1
 pkgdesc='Terminal multiplexer'
 url='https://github.com/tmux/tmux/wiki'
 arch=('x86_64')
@@ -14,7 +14,7 @@ depends=('libevent' 'libevent_core-2.1.so'
          'systemd-libs' 'libsystemd.so')
 makedepends=('git' 'systemd')
 source=("git+https://github.com/tmux/tmux.git#tag=${pkgver}")
-sha256sums=('71387cf05585836da88d9b481f98e89be5bc8f09a203600187b22aa0e00c52b0')
+sha256sums=('b838881279beaf795bf4926212c2d3fe0d31188c83e8d9efd68dc6772c559916')
 
 prepare() {
 	cd "$pkgname"
