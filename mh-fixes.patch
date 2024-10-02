@@ -1,20 +1,9 @@
-diff --git a/README b/README
-index 57329629..486d3c1d 100644
---- a/README
-+++ b/README
-@@ -6,6 +6,12 @@ screen and continue running in the background, then later reattached.
- 
- This release runs on OpenBSD, FreeBSD, NetBSD, Linux, macOS and Solaris.
- 
-+* NOTE
-+
-+This is the mH fork of tmux. My changes are mostly for my use-case only. Try to
-+diff the lastest tag starting with `mh-` against theirs to see what the
-+differences are.
-+
- * Dependencies
- 
- tmux depends on libevent 2.x, available from:
+ cmd-new-session.c | 4 ++++
+ format.c          | 4 +++-
+ input-keys.c      | 2 +-
+ tty-keys.c        | 1 +
+ 4 files changed, 9 insertions(+), 2 deletions(-)
+
 diff --git a/cmd-new-session.c b/cmd-new-session.c
 index c90369bc..1abc2124 100644
 --- a/cmd-new-session.c
@@ -31,7 +20,7 @@ index c90369bc..1abc2124 100644
  	 * Set the client to the new session. If a command client exists, it is
  	 * taking this session and needs to get MSG_READY and stay around.
 diff --git a/format.c b/format.c
-index a5039dfa..ce0c31e8 100644
+index aff72b7c..b0b11cf1 100644
 --- a/format.c
 +++ b/format.c
 @@ -34,6 +34,8 @@
@@ -48,12 +37,12 @@ index a5039dfa..ce0c31e8 100644
  	if (force && fj->job != NULL)
  	       job_free(fj->job);
 -	if (force || (fj->job == NULL && fj->last != t)) {
-+	if (force || (fj->job == NULL && t >= (fj->last + FORMAT_CMD_INTERVAL))) {
++	if (force || (fj->job == NULL && t > (fj->last + FORMAT_CMD_INTERVAL))) {
  		fj->job = job_run(expanded, 0, NULL, NULL, NULL,
  		    server_client_get_cwd(ft->client, NULL), format_job_update,
  		    format_job_complete, NULL, fj, JOB_NOWAIT, -1, -1);
 diff --git a/input-keys.c b/input-keys.c
-index 0451b968..c72d55b5 100644
+index 4dd42e1b..99513efe 100644
 --- a/input-keys.c
 +++ b/input-keys.c
 @@ -113,7 +113,7 @@ static struct input_key_entry input_key_defaults[] = {
@@ -66,14 +55,14 @@ index 0451b968..c72d55b5 100644
  
  	/* Arrow keys. */
 diff --git a/tty-keys.c b/tty-keys.c
-index ef80abc4..fecc4777 100644
+index 3debeea1..165bcd5e 100644
 --- a/tty-keys.c
 +++ b/tty-keys.c
-@@ -1556,6 +1556,7 @@ tty_keys_colours(struct tty *tty, const char *buf, size_t len, size_t *size)
- 		tty->fg = n;
- 	} else if (n != -1) {
- 		log_debug("%s: background is %s", c->name, colour_tostring(n));
+@@ -1571,6 +1571,7 @@ tty_keys_colours(struct tty *tty, const char *buf, size_t len, size_t *size,
+ 		else
+ 			log_debug("bg is %s", colour_tostring(n));
+ 		*bg = n;
 +		environ_set(global_environ, "BG", ENVIRON_HIDDEN, "%x", n & 0xffffff);
- 		tty->bg = n;
  	}
  
+ 	return (0);
