@@ -1,11 +1,5 @@
- cmd-new-session.c | 4 ++++
- format.c          | 4 +++-
- input-keys.c      | 2 +-
- tty-keys.c        | 1 +
- 4 files changed, 9 insertions(+), 2 deletions(-)
-
 diff --git a/cmd-new-session.c b/cmd-new-session.c
-index c90369bc..1abc2124 100644
+index c90369b..1abc212 100644
 --- a/cmd-new-session.c
 +++ b/cmd-new-session.c
 @@ -316,6 +316,10 @@ cmd_new_session_exec(struct cmd *self, struct cmdq_item *item)
@@ -20,7 +14,7 @@ index c90369bc..1abc2124 100644
  	 * Set the client to the new session. If a command client exists, it is
  	 * taking this session and needs to get MSG_READY and stay around.
 diff --git a/format.c b/format.c
-index aff72b7c..b0b11cf1 100644
+index aff72b7..b0b11cf 100644
 --- a/format.c
 +++ b/format.c
 @@ -34,6 +34,8 @@
@@ -42,7 +36,7 @@ index aff72b7c..b0b11cf1 100644
  		    server_client_get_cwd(ft->client, NULL), format_job_update,
  		    format_job_complete, NULL, fj, JOB_NOWAIT, -1, -1);
 diff --git a/input-keys.c b/input-keys.c
-index 4dd42e1b..99513efe 100644
+index 4dd42e1..99513ef 100644
 --- a/input-keys.c
 +++ b/input-keys.c
 @@ -113,7 +113,7 @@ static struct input_key_entry input_key_defaults[] = {
@@ -55,10 +49,10 @@ index 4dd42e1b..99513efe 100644
  
  	/* Arrow keys. */
 diff --git a/tty-keys.c b/tty-keys.c
-index 3debeea1..165bcd5e 100644
+index 5416c78..97b9362 100644
 --- a/tty-keys.c
 +++ b/tty-keys.c
-@@ -1571,6 +1571,7 @@ tty_keys_colours(struct tty *tty, const char *buf, size_t len, size_t *size,
+@@ -1585,6 +1585,7 @@ tty_keys_colours(struct tty *tty, const char *buf, size_t len, size_t *size,
  		else
  			log_debug("bg is %s", colour_tostring(n));
  		*bg = n;
